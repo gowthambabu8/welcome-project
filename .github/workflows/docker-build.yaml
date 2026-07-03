@@ -1,0 +1,38 @@
+name: Docker Build
+on:
+    workflow_dispatch: 
+
+permissions:
+    contents: read
+    id-token: write
+
+env:
+    AWS_REGION: us-east-1
+    ECR_REPO: myapp
+    IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: code checkout
+                uses: actions/checkout@v4
+            -   name: configure aws credentials
+                uses: aws-actions/configure-aws-credentials@v4
+                with:
+                    role-to-assume: arn:aws:iam::105673693772:role/github-actions
+                    aws-region: ${{ env.AWS_REGION }}
+            -   name: login to aws ecr
+                id: ecr-login
+                uses: aws-actions/amazon-ecr-login@v2
+            -   name: build, tag and push image
+                env: 
+                    ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+                run: |
+                    docker build -t $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG .
+                    docker tag $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPO:latest
+                    docker push $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
+                    docker push $ECR_REGISTRY/$ECR_REPO:latest
+            
+
+
