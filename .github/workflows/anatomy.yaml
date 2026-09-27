@@ -5,6 +5,9 @@ on:
         branches: ["main"]
         paths:
             - "src/**"
+    pull_request: 
+        branches: ["main"]
+        types: ["opened","synchronize","reopened"]
 jobs:
     print_message:
         runs-on: ubuntu-latest
