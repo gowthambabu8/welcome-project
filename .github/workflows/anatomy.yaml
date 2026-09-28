@@ -16,6 +16,7 @@ jobs:
                 echo "Hello World"
     variables:
         runs-on: ubuntu-slim
+        environment: DEV
         env: 
             NAME: ${{ vars.REPO_NAME }}
             APP_ENV: "DEV"
@@ -23,4 +24,4 @@ jobs:
             - run: echo $NAME
             - run: |
                 echo "printing env variables"
-                echo ${{ env.APP_ENV.REQUIRED }}
+                echo ${{ vars.REQUIRED }}
