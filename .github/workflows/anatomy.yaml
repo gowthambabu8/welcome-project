@@ -28,10 +28,9 @@ jobs:
                 echo "Hello World"
     variables:
         runs-on: ubuntu-slim
-        environment: DEV
+        environment: ${{ inputs.environment }}
         env: 
             NAME: ${{ vars.REPO_NAME }}
-            APP_ENV: "DEV"
         steps:
             - run: |
                 echo $NAME
