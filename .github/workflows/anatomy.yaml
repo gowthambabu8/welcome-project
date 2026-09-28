@@ -14,3 +14,9 @@ jobs:
         steps:
             - run: |
                 echo "Hello World"
+    variables:
+        runs-on: ubuntu-slim
+        env: 
+            NAME: ${{ vars.REPO_NAME }}
+        steps:
+            - run: echo $NAME
