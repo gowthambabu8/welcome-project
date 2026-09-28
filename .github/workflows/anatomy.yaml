@@ -1,6 +1,14 @@
 name: Anatomy
 on:
     workflow_dispatch:
+        inputs:
+            environment:
+                description: "Target environment"
+                required: true
+                type: choice
+                options:
+                    - DEV
+                    - PROD
     push:
         branches: ["main"]
         paths:
@@ -10,7 +18,7 @@ on:
         types: ["opened","synchronize","reopened"]
 env: 
     NAME: ${{ vars.REPO_NAME }}
-    APP_ENV: "DEV"
+    APP_ENV: ${{ inputs.environment }}
     REPORT_REQUIRED: True
 jobs:
     print_message:
@@ -27,7 +35,7 @@ jobs:
         steps:
             - run: |
                 echo $NAME
-                echo "printing env variables"
-                echo ${{ vars.REQUIRED }}
+                echo "printing env variables for "
+                echo $APP_ENV ${{ vars.REQUIRED }}
                 echo "Report required "
                 echo $REPORT_REQUIRED
