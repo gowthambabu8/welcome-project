@@ -29,4 +29,5 @@ jobs:
                 echo $NAME
                 echo "printing env variables"
                 echo ${{ vars.REQUIRED }}
-                echo "Report required:: ${{ vars.REPORT_REQUIRED }}"
+                echo "Report required "
+                echo $REPORT_REQUIRED
