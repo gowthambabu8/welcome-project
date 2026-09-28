@@ -18,5 +18,9 @@ jobs:
         runs-on: ubuntu-slim
         env: 
             NAME: ${{ vars.REPO_NAME }}
+            APP_ENV: "DEV"
         steps:
             - run: echo $NAME
+            - run: |
+                echo "printing env variables"
+                echo ${{ env.APP_ENV.REQUIRED }}
