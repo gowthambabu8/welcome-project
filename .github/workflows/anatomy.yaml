@@ -8,6 +8,10 @@ on:
     pull_request: 
         branches: ["main"]
         types: ["opened","synchronize","reopened"]
+env: 
+    NAME: ${{ vars.REPO_NAME }}
+    APP_ENV: "DEV"
+    REPORT_REQUIRED: True
 jobs:
     print_message:
         runs-on: ubuntu-latest
@@ -21,7 +25,8 @@ jobs:
             NAME: ${{ vars.REPO_NAME }}
             APP_ENV: "DEV"
         steps:
-            - run: echo $NAME
             - run: |
+                echo $NAME
                 echo "printing env variables"
                 echo ${{ vars.REQUIRED }}
+                echo "Report required:: ${{ vars.REPORT_REQUIRED }}"
