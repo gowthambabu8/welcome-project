@@ -3,6 +3,8 @@ on: [push,pull_request]
 jobs:
     test:
         runs-on: ubuntu-slim
+        outputs:
+          coverage: ${{ steps.cov.outputs.value }}
         steps:
             - run: echo ${{github.ref}}
             - if: github.ref == 'refs/heads/main'
@@ -13,3 +15,15 @@ jobs:
 
             - if: github.run_attempt > 1
               run: echo "This is attempt ${{github.run_attempt}}"
+            
+            - name: static coverage report
+              id: cov
+              run: echo "value=80" >> "$GITHUB_OUTPUT"
+    
+    build:
+        runs-on: ubuntu-slim
+        needs: test
+        steps:
+            - name: check coverage score
+              if: fromJSON(needs.test.outputs.coverage) >= 80
+              run: echo "coverage gate passed"
