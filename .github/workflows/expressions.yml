@@ -4,6 +4,7 @@ jobs:
     test:
         runs-on: ubuntu-slim
         steps:
+            - run: echo ${{github.ref}}
             - if: github.ref == 'refs/head/main'
               run: echo "Running code from main branch"
             
