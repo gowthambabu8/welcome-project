@@ -50,5 +50,8 @@ jobs:
               run: echo "Deploying code"
             
             - if: failure()
+              id: failed_step
               run: echo "Failed to deploy"
             
+            - if: steps.failed_step.outcome == 'failure'
+              run: echo "Previous step failed to deploy... Aborting"
