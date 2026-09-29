@@ -27,3 +27,19 @@ jobs:
             - name: check coverage score
               if: fromJSON(needs.test.outputs.coverage) >= 80
               run: echo "coverage gate passed"
+    
+    string_checks:
+        runs-on: ubuntu-latest
+        steps:
+            - name: contains method
+              if: contains(github.event.head_commit.message, '[skips-test]')
+              run: echo "skipping tests execution"
+
+            - name: startsWith method
+              if: startsWith(github.ref, 'ref/heads/main')
+              run: echo "Deploying feature branch"
+            
+            - name: endsWith method
+              if: endsWith(github.ref, 'main')
+              run: echo "comitted to main branch"
+            
