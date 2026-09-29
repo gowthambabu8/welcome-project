@@ -40,7 +40,6 @@ jobs:
               run: echo "Deploying feature branch"
             
             - name: endsWith method
-              if: endsWith(github.ref, 'main')
-              run: echo "comitted to main branch"
+              if: endsWith(github.ref_name, 'hotfix')
+              run: echo "It belongs to hotfix branch"
             
-              
