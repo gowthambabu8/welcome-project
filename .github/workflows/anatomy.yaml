@@ -35,6 +35,5 @@ jobs:
             - run: |
                 echo $NAME
                 echo "printing env variables for $APP_ENV ${{ vars.REQUIRED }}"
-                echo $APP_ENV ${{ vars.REQUIRED }}
                 echo "Report required "
                 echo $REPORT_REQUIRED

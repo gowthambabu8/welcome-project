@@ -1,0 +1,11 @@
+name: Expressions
+on: [push,pull_request]
+jobs:
+    test:
+        runs-on: ubuntu-slim
+        steps:
+            - if: github.ref == 'refs/head/main'
+              run: echo "Running code from main branch"
+            
+            - if: github.ref == 'refs/head/stage'
+              run: echo "Running code from stage branch"
