@@ -5,6 +5,7 @@ jobs:
         runs-on: ubuntu-slim
         outputs:
           coverage: ${{ steps.cov.outputs.value }}
+        if: failure()
         steps:
             - run: echo ${{github.ref}}
             - if: github.ref == 'refs/heads/main'
