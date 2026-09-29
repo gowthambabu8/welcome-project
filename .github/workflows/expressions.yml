@@ -36,7 +36,7 @@ jobs:
               run: echo "skipping tests execution"
 
             - name: startsWith method
-              if: startsWith(github.ref, 'ref/heads/main')
+              if: startsWith(github.ref, 'refs/heads/main')
               run: echo "Deploying feature branch"
             
             - name: endsWith method
