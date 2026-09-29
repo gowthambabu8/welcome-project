@@ -53,7 +53,7 @@ jobs:
               id: failed_step
               run: echo "Failed to deploy"
             
-            - if: steps.failed_step.outcome == 'failure'
+            - if: steps.failed_step.outcome == 'skipped'
               run: echo "Previous step failed to deploy... Aborting"
 
             - run: echo ${{ steps.failed_step.outcome }}
