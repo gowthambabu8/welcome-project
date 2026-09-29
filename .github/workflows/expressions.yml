@@ -7,5 +7,8 @@ jobs:
             - if: github.ref == 'refs/head/main'
               run: echo "Running code from main branch"
             
-            - if: github.ref == 'refs/head/stage'
-              run: echo "Running code from stage branch"
+            - if: github.event_name != 'pull_request'
+              run: echo "This is direct commit"
+
+            - if: github.run_attempt > 1
+              run: echo "This is attempt ${{github.run_attempt}}"
