@@ -35,3 +35,16 @@ jobs:
         steps:
             - name: Deployment
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
+    
+    fail-fast:
+        runs-on: ubuntu-slim
+        strategy:
+            matrix:
+                env: ["Dev", "Stage", "Prod"]
+                region: ["us-east-1","us-east-2"]
+                exclude:
+                    - env: "Dev"
+        if: failure()
+        steps:
+            - name: Deployment
+              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
