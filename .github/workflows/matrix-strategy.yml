@@ -1,12 +1,37 @@
 name: Matrix Strategy
 on: [push, pull_request, workflow_dispatch]
 jobs:
-    test:
+    strategy-basic:
         runs-on: ubuntu-slim
         strategy:
             matrix:
                 env: ["Dev", "Stage", "Prod"]
                 region: ["us-east-1","us-east-2"]
+        steps:
+            - name: Deployment
+              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
+    
+    strategy-include:
+        runs-on: ubuntu-slim
+        strategy:
+            matrix:
+                env: ["Dev", "Stage", "Prod"]
+                region: ["us-east-1","us-east-2"]
+                include:
+                    - env: "Pre-Prod"
+                      region: "us-east-3"
+        steps:
+            - name: Deployment
+              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
+    
+    strategy-exclude:
+        runs-on: ubuntu-slim
+        strategy:
+            matrix:
+                env: ["Dev", "Stage", "Prod"]
+                region: ["us-east-1","us-east-2"]
+                exclude:
+                    - env: "Dev"
         steps:
             - name: Deployment
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
