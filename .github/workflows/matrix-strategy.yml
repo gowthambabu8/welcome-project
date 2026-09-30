@@ -20,6 +20,7 @@ jobs:
     strategy-basic:
         runs-on: ubuntu-latest
         strategy:
+            max-parallel: 2
             matrix:
                 env: ["Dev", "Stage", "Prod"]
                 region: ["us-east-1","us-east-2"]
