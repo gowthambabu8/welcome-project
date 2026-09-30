@@ -1,6 +1,20 @@
 name: Matrix Strategy
 on: [push, pull_request, workflow_dispatch]
 jobs:
+    strategy-fail-fast:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: true
+            matrix:
+                env: ["Dev", "Stage", "Prod"]
+                region: ["us-east-1","us-east-2"]
+                exclude:
+                    - env: "Dev"
+        if: failure()
+        steps:
+            - name: Deployment
+              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
+
     strategy-basic:
         runs-on: ubuntu-latest
         strategy:
@@ -32,20 +46,6 @@ jobs:
                 region: ["us-east-1","us-east-2"]
                 exclude:
                     - env: "Dev"
-        steps:
-            - name: Deployment
-              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
-    
-    strategy-fail-fast:
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: false
-            matrix:
-                env: ["Dev", "Stage", "Prod"]
-                region: ["us-east-1","us-east-2"]
-                exclude:
-                    - env: "Dev"
-        if: failure()
         steps:
             - name: Deployment
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
