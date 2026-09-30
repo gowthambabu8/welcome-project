@@ -2,7 +2,7 @@ name: Matrix Strategy
 on: [push, pull_request, workflow_dispatch]
 jobs:
     strategy-basic:
-        runs-on: ubuntu-slim
+        runs-on: ubuntu-latest
         strategy:
             matrix:
                 env: ["Dev", "Stage", "Prod"]
@@ -12,7 +12,7 @@ jobs:
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
     
     strategy-include:
-        runs-on: ubuntu-slim
+        runs-on: ubuntu-latest
         strategy:
             matrix:
                 env: ["Dev", "Stage", "Prod"]
@@ -25,7 +25,7 @@ jobs:
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
     
     strategy-exclude:
-        runs-on: ubuntu-slim
+        runs-on: ubuntu-latest
         strategy:
             matrix:
                 env: ["Dev", "Stage", "Prod"]
@@ -37,7 +37,7 @@ jobs:
               run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
     
     strategy-fail-fast:
-        runs-on: ubuntu-slim
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
