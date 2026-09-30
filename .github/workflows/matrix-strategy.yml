@@ -2,18 +2,19 @@ name: Matrix Strategy
 on: [push, pull_request, workflow_dispatch]
 jobs:
     strategy-fail-fast:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
         strategy:
-            fail-fast: true
             matrix:
-                env: ["Dev", "Stage", "Prod"]
-                region: ["us-east-1","us-east-2"]
-                exclude:
-                    - env: "Dev"
-        if: failure()
+                os: [ubuntu-latest, windows-latest]
+                node: [18,20,22]
         steps:
-            - name: Deployment
-              run: echo "Deploying into region ${{ matrix.region }} into environment ${{ matrix.env }}"
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                node-version: ${{matrix.node}}
+            - run: npm ci
+            - run: npm test
+
 
     strategy-basic:
         runs-on: ubuntu-latest
