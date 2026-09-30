@@ -39,7 +39,7 @@ jobs:
     strategy-fail-fast:
         runs-on: ubuntu-latest
         strategy:
-            fail-fast: true
+            fail-fast: false
             matrix:
                 env: ["Dev", "Stage", "Prod"]
                 region: ["us-east-1","us-east-2"]
