@@ -45,6 +45,7 @@ jobs:
     upload-options:
         runs-on: ubuntu-slim
         steps:
+            - uses: actions/checkout@v4
             - run: |
                 mkdir -p out
                 echo "build" > out/build_info.txt
