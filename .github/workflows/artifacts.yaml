@@ -58,5 +58,25 @@ jobs:
                 compression-level: 0 # 0 to 9
                 overwrite: false
                 include-hidden-files: true #.coverage files
+    
+    upload-matrix:
+        runs-on: ubuntu-slim
+        strategy:
+            matrix:
+                version: [18,19,20]
+        steps:
+            - run: |
+                mkdir -p out
+                echo "printing ${{matrix.version}}" > out/build_info.txt
+            - uses: actions/upload-artifact@v4
+              with:
+                name: build-${{matrix.version}}
+                path: out/
+            - uses: actions/download-artifact@v4
+              with:
+                name: build-${{matrix.version}}
+                path: downloaded/
+
+
 
 
