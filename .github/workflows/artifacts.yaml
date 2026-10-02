@@ -34,4 +34,8 @@ jobs:
                     dist/
                     reports/**/*.xml
                     !dist/**/*.map
+            - uses: actions/download-artifact@v4
+              with: 
+                name: build-output-multiple
+                path: downloaded/
 
