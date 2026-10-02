@@ -45,11 +45,11 @@ jobs:
     upload-options:
         runs-on: ubuntu-slim
         steps:
-            - uses: actions/checkout@v4
+            #- uses: actions/checkout@v4
             - run: |
                 mkdir -p out
                 echo "build" > out/build_info.txt
-            - uses: actions/upload@v4
+            - uses: actions/upload-artifact@v4
               with:
                 name: upoad-options
                 path: out/
