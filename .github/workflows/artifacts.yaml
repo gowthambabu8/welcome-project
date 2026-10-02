@@ -23,3 +23,15 @@ jobs:
                 path: downloaded/
             - run: |
                 cat downloaded/build_info.txt
+    
+    build-multiple:
+        runs-on: ubuntu-slim
+        steps:
+            - uses: actions/upload-artifact@v4
+              with:
+                name: build-output-multiple
+                path: |
+                    dist/
+                    reports/**/*.xml
+                    !dist/**/*.map
+
