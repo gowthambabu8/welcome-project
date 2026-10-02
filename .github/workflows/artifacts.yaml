@@ -41,4 +41,21 @@ jobs:
               with: 
                 name: build-output-multiple
                 path: downloaded/
+    
+    upload-options:
+        runs-on: ubuntu-slim
+        steps:
+            - run: |
+                mkdir -p out
+                echo "build" > out/build_info.txt
+            - uses: actions/upload@v4
+              with:
+                name: upoad-options
+                path: out/
+                if-no-files-found: error
+                retention-days: 1 # override the default 90 days
+                compression-level: 0 # 0 to 9
+                overwrite: false
+                include-hidden-files: true #.coverage files
+
 
