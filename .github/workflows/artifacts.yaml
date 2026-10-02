@@ -53,7 +53,7 @@ jobs:
               with:
                 name: upoad-options
                 path: out1/
-                if-no-files-found: error
+                if-no-files-found: WARNING
                 retention-days: 1 # override the default 90 days
                 compression-level: 0 # 0 to 9
                 overwrite: false
