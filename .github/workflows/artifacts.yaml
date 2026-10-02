@@ -1,0 +1,24 @@
+name: Artifacts upload and download
+on: [push, pull_request,workflow_dispatch]
+jobs:
+    build:
+        runs-on: ubuntu-slim
+        steps:
+            - uses: actions/checkout@v4
+            - run: |
+                mkdir -p out
+                echo "build ${{github.sha}}" > out/build_info.txt
+            - uses: actions/upload-artifact@v4
+              with:
+                name: build-output
+                path: out/
+    
+    deploy:
+        runs-on: ubuntu-slim
+        steps:
+            - uses: actions/download-artifact@v4
+              with:
+                name: build-output
+                path: downloaded/
+            - run: |
+                cat downloaded/build_info.txt
