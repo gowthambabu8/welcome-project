@@ -27,13 +27,16 @@ jobs:
     build-multiple:
         runs-on: ubuntu-slim
         steps:
+            - run: |
+                mkdir -p out
+                echo "build 1" > out/buil1.txt
+                echo "build 2" > out/buil2.txt
+                echo "build 3" > out/buil3.txt
+
             - uses: actions/upload-artifact@v4
               with:
                 name: build-output-multiple
-                path: |
-                    dist/
-                    reports/**/*.xml
-                    !dist/**/*.map
+                path: out/
             - uses: actions/download-artifact@v4
               with: 
                 name: build-output-multiple
