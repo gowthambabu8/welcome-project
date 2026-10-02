@@ -52,7 +52,7 @@ jobs:
             - uses: actions/upload-artifact@v4
               with:
                 name: upoad-options
-                path: out/
+                path: out1/
                 if-no-files-found: error
                 retention-days: 1 # override the default 90 days
                 compression-level: 0 # 0 to 9
