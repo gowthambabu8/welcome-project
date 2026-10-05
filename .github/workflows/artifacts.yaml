@@ -52,7 +52,7 @@ jobs:
             - uses: actions/upload-artifact@v4
               with:
                 name: upoad-options
-                path: out1/
+                path: out/
                 if-no-files-found: warn
                 retention-days: 1 # override the default 90 days
                 compression-level: 0 # 0 to 9
@@ -77,15 +77,15 @@ jobs:
                 name: build-${{matrix.version}}
                 path: downloaded/
     
-    download-matrix:
-        runs-on: ubuntu-slim
-        needs: upload-matrix
-        steps:
-            - uses: actions/download-artifact@v4
-              with:
-                name: build-*
-                merge-multiple: true
-                path: all-reports/
+    # download-matrix:
+    #     runs-on: ubuntu-slim
+    #     needs: upload-matrix
+    #     steps:
+    #         - uses: actions/download-artifact@v4
+    #           with:
+    #             name: build-*
+    #             merge-multiple: true
+    #             path: all-reports/
 
 
 
