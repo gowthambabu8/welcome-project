@@ -76,6 +76,16 @@ jobs:
               with:
                 name: build-${{matrix.version}}
                 path: downloaded/
+    
+    download-matrix:
+        runs-on: ubuntu-slim
+        needs: upload-matrix
+        steps:
+            - uses: actions/download-artifact@v4
+              with:
+                name: build-*
+                merge-multiple: true
+                path: all-reports/
 
 
 
