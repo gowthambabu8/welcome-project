@@ -70,7 +70,7 @@ jobs:
                 echo "printing ${{matrix.version}}" > out/build_info.txt
             - uses: actions/upload-artifact@v4
               with:
-                name: build-${{matrix.version}}
+                name: version-${{matrix.version}}
                 path: out/
             # - uses: actions/download-artifact@v4
             #   with:
@@ -83,7 +83,7 @@ jobs:
         steps:
             - uses: actions/download-artifact@v4
               with:
-                pattern: build-*
+                pattern: version-*
                 merge-multiple: false
                 path: all-reports/
 
