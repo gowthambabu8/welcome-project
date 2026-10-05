@@ -86,6 +86,9 @@ jobs:
                 pattern: version-*
                 merge-multiple: true
                 path: all-reports/
+            - run: |
+                ls -R all-reports/
+                cat all-reports/*.txt
 
 
 
