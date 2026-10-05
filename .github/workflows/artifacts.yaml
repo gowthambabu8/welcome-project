@@ -84,7 +84,7 @@ jobs:
             - uses: actions/download-artifact@v4
               with:
                 pattern: version-*
-                merge-multiple: false
+                merge-multiple: true
                 path: all-reports/
 
 
