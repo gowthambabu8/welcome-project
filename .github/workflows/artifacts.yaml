@@ -67,7 +67,7 @@ jobs:
         steps:
             - run: |
                 mkdir -p out
-                echo "printing ${{matrix.version}}" > out/build_info.txt
+                echo "printing ${{matrix.version}}" > out/build_info-${{matrix.version}}.txt
             - uses: actions/upload-artifact@v4
               with:
                 name: version-${{matrix.version}}
