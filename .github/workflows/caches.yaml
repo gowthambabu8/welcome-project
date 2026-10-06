@@ -49,7 +49,7 @@ jobs:
                     echo "Key found. Using existing key"
                     echo "Cache hit :: ${{steps.cache-packg.outputs.cache-hit}}"
                     echo "lock file hash :: ${{ hashFiles('node-app/package-lock.json') }}"
-                else;
+                else
                     echo "No key found. Keys restored"
                 fi
                 
