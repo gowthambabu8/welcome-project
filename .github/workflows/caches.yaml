@@ -45,12 +45,13 @@ jobs:
                     ${{runner.os}}node-
             - name: check if existing key or restored key
               run: |
-                if [ ${{steps.cache-packg.outputs.cache-hit}}] == "true" ]; then 
+                if [ "${{steps.cache-packg.outputs.cache-hit}}" == "true" ]; then 
                     echo "Key found. Using existing key"
                     echo "Cache hit :: ${{steps.cache-packg.outputs.cache-hit}}"
                     echo "lock file hash :: ${{ hashFiles('node-app/package-lock.json') }}"
                 else;
                     echo "No key found. Keys restored"
+                fi
                 
             - run: npm ci
             - run: npm test
