@@ -1,5 +1,8 @@
 name: cache
 on: [push,pull_request,workflow_dispatch]
+defaults:
+    run:
+        working-directory: node-app
 jobs:
     package-basic:
         runs-on: ubuntu-latest
