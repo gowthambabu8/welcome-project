@@ -14,9 +14,14 @@ jobs:
               with:
                 node-version: 20
             - name: cache npm packages
+              id: cache-packg
               uses: actions/cache@v4
               with:
                 path: ~/.npm
                 key: ${{runner.os}}node-${{hashFiles('node-app/package-lock.json')}}
+            - name: show the computed key
+              run: |
+                echo "Cache hit :: ${{steps.cache-packg.outputs.cache-hit}}"
+                echo "lock file hash :: ${{ hashFiles('node-app/package-lock.json') }}"
             - run: npm ci
             - run: npm test
