@@ -9,7 +9,7 @@ jobs:
             - name: node setup
               uses: actions/setup-node@v4
               with:
-                version: 20
+                node-version: 20
             - name: cache npm packages
               uses: actions/cache@v4
               with:
