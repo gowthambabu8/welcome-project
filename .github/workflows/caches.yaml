@@ -5,6 +5,7 @@ defaults:
         working-directory: node-app
 jobs:
     package-basic:
+        if: failure()
         runs-on: ubuntu-latest
         steps:
             - name: code checkout
@@ -27,6 +28,7 @@ jobs:
             - run: npm test
     
     package-restore-keys:
+        if: failure()
         runs-on: ubuntu-latest
         steps:
             - name: code checkout
