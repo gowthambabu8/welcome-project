@@ -59,6 +59,7 @@ jobs:
             - run: npm test
     
     package-cache-hit:
+        if: failure()
         runs-on: ubuntu-latest
         steps:
             - name: code checkout
@@ -94,5 +95,19 @@ jobs:
               if: steps.cache-packg.outputs.cache-hit == 'true'
               run: |
                 echo "Skipped installation of dependencies as they are restored from cache"
+            - run: npm ci
+            - run: npm test
+    
+    package-cache-dependencies-path:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+            - name: node setup
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+                cache: npm
+                cache-dependency-path: node-app/package-lock.json
             - run: npm ci
             - run: npm test
