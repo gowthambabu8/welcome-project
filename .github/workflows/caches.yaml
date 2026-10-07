@@ -85,11 +85,12 @@ jobs:
                 
             - name: Install dependencies if not found
               if: steps.cache-packg.outputs.cache-hit != 'true'
-              run: npm ci
-              
+              run: |
+                echo "Dependencies has been installed"
+
             - name: Got dependencies from cache
               if: steps.cache-packg.outputs.cache-hit == 'true'
               run: |
-                echo "Skipped installation of dependies as they are restored from cache"
-
+                echo "Skipped installation of dependencies as they are restored from cache"
+            - run: npm ci
             - run: npm test
