@@ -43,7 +43,7 @@ jobs:
                 key: ${{runner.os}}node-${{hashFiles('node-app/package-lock.json')}}
                 restore-keys:
                     ${{runner.os}}node-
-            - name: check if existing key or restored key
+            - name: check if existing key or get latest key as restored key
               run: |
                 if [ "${{steps.cache-packg.outputs.cache-hit}}" == "true" ]; then 
                     echo "Key found. Using existing key"
@@ -54,4 +54,42 @@ jobs:
                 fi
                 
             - run: npm ci
+            - run: npm test
+    
+    package-cache-hit:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+            - name: node setup
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+            - name: cache npm packages
+              id: cache-packg
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm
+                key: ${{runner.os}}node-${{hashFiles('node-app/package-lock.json')}}
+                restore-keys:
+                    ${{runner.os}}node-
+            - name: check if existing key or get latest key as restored key
+              run: |
+                if [ "${{steps.cache-packg.outputs.cache-hit}}" == "true" ]; then 
+                    echo "Key found. Using existing key"
+                    echo "Cache hit :: ${{steps.cache-packg.outputs.cache-hit}}"
+                    echo "lock file hash :: ${{ hashFiles('node-app/package-lock.json') }}"
+                else
+                    echo "No key found. Keys restored"
+                fi
+                
+            - name: Install dependencies if not found
+              if: steps.cache-packg.outputs.cache-hit != 'true'
+              run: npm ci
+              
+            - name: Got dependencies from cache
+              if: steps.cache-packg.outputs.cache-hit == 'true'
+              run: |
+                echo "Skipped installation of dependies as they are restored from cache"
+
             - run: npm test
